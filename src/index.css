@@ -2,14 +2,19 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {
-  --color-navy: #0A192F;
-  --color-gold: #D4AF37;
-  --color-ivory: #FFFFF0;
-  --color-charcoal: #1E1E1E;
+:root {
+  --color-navy: #0A192F;       /* Dark navy background */
+  --color-charcoal: #1E1E1E;   /* Deep charcoal for panels */
+  --color-cyan: #22D3EE;       /* Electric cyan accent */
+  --color-blue: #60A5FA;       /* Bright blue accent */
+  --color-ice: #E0F7FA;        /* Soft ice blue for highlights */
+  --color-text: #F3F4F6;       /* Light gray/white text */
 }
 
+
 body {
+  background-color: var(--color-navy);
+  color: var(--color-text);
   font-family: 'Poppins', sans-serif;
 }
 
@@ -17,20 +22,31 @@ body {
   font-family: 'Alex Brush', cursive;
 }
 
+/* Diamond background pattern, adjusted for dark theme */
 .diamond-bg {
   background-image:
-    linear-gradient(45deg, rgba(30,30,30,0.05) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(30,30,30,0.05) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(30,30,30,0.05) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(30,30,30,0.05) 75%);
+    linear-gradient(45deg, rgba(34,211,238,0.05) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(34,211,238,0.05) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(34,211,238,0.05) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(34,211,238,0.05) 75%);
   background-size: 40px 40px;
   background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
 }
 
 .dark .diamond-bg {
   background-image:
-    linear-gradient(45deg, rgba(212,175,55,0.07) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(212,175,55,0.07) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(212,175,55,0.07) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(212,175,55,0.07) 75%);
+    linear-gradient(45deg, rgba(96,165,250,0.07) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(96,165,250,0.07) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(96,165,250,0.07) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(96,165,250,0.07) 75%);
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+
+
+
+

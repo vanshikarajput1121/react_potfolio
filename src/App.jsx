@@ -1,17 +1,22 @@
 import React from 'react'
-import Navbar from './Components/Navbar'
-import Hero from './Components/Hero'
+import Navbar from './components/Navbar'
+import Hero from './components/Hero'
+import Skills from './components/Skills'
+import Qualification from './components/Qualification'
+import Projects from './components/Projects'
+import Contact from './components/Contact'
+import Footer from './components/Footer'
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-ivory dark:bg-navy transition-colors duration-300">
+    <div className="bg-[#0A192F] text-white font-sans bg-pattern min-h-screen">
       <Navbar />
-      <main>
-        <Hero />
-        <section id="skills" className="min-h-screen bg-ivory dark:bg-navy diamond-bg" />
-        <section id="about" className="min-h-screen bg-ivory dark:bg-navy diamond-bg" />
-        <section id="projects" className="min-h-screen bg-ivory dark:bg-navy diamond-bg" />
-      </main>
+      <Hero />
+      <Skills />
+      <Qualification />
+      <Projects />
+      <Contact />
+      <Footer />
     </div>
   )
 }
