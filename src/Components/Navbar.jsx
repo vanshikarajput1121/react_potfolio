@@ -78,7 +78,7 @@ export default function Navbar() {
             <FaGithub size={22} />
           </a>
           <a
-            href="https://linkedin.com/in/vanshika-rana-492290418"
+            href="https://linkedin.com/in/vanshika-rana1121"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:block text-gray-300 hover:text-cyan-400 transition-colors"

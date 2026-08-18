@@ -21,7 +21,7 @@ export default function Footer() {
             <FaGithub size={22} />
           </a>
           <a 
-            href="https://linkedin.com/in/vanshika-rana-492290418" 
+            href="https://linkedin.com/in/vanshika-rana1121" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="text-gray-400 hover:text-[var(--color-blue)] transition-colors"
