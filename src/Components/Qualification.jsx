@@ -35,7 +35,7 @@ export default function QualificationExperience() {
   return (
     <div className="bg-[#0A192F] text-white p-10 rounded-2xl shadow-xl space-y-12">
       {/* Qualifications Section */}
-      <div>
+      <div id="qualifications">
         <div className="flex items-center justify-center gap-3 mb-2">
           <FaGraduationCap className="text-4xl text-cyan-400 drop-shadow-lg" />
           <h2 className="text-4xl font-bold text-cyan-400">Qualifications</h2>
@@ -58,7 +58,7 @@ export default function QualificationExperience() {
       </div>
 
       {/* Experience Section */}
-      <div>
+      <div id="experience">
         <div className="flex items-center justify-center gap-3 mb-2">
           <FaBriefcase className="text-4xl text-cyan-400 drop-shadow-lg" />
           <h2 className="text-4xl font-bold text-cyan-400">Experience</h2>
