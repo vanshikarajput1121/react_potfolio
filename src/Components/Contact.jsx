@@ -44,16 +44,16 @@ export default function Contact() {
           </a>
         </div>
 
-        <div className="flex items-center gap-3 p-4 rounded-lg bg-gradient-to-r from-[var(--color-charcoal)] to-[var(--color-navy)] shadow-md hover:scale-105 transition">
+        {/* <div className="flex items-center gap-3 p-4 rounded-lg bg-gradient-to-r from-[var(--color-charcoal)] to-[var(--color-navy)] shadow-md hover:scale-105 transition">
           <FaPhone className="text-[var(--color-blue)] text-xl" />
           <a href="tel:+919671943636" className="text-gray-300 hover:text-[var(--color-cyan)]">
             +91 9671943636
           </a>
-        </div>
+        </div> */}
 
         <div className="flex items-center gap-3 p-4 rounded-lg bg-gradient-to-r from-[var(--color-charcoal)] to-[var(--color-navy)] shadow-md hover:scale-105 transition">
           <FaMapMarkerAlt className="text-[var(--color-blue)] text-xl" />
-          <p className="text-gray-300">VPO Batta, Kalayat, 136117</p>
+          <p className="text-gray-300">kaithal,136027</p>
         </div>
       </div>
     </section>
