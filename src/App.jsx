@@ -1,11 +1,10 @@
-import React from 'react'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Skills from './components/Skills'
-import Qualification from './components/Qualification'
-import Projects from './components/Projects'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
+import Navbar from './Components/Navbar'
+import Hero from './Components/Hero'
+import Skills from './Components/Skills'
+import Qualification from './Components/Qualification'
+import Projects from './Components/Projects'
+import Contact from './Components/Contact'
+import Footer from './Components/Footer'
 
 export default function App() {
   return (
