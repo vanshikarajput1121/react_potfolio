@@ -40,7 +40,7 @@ export default function Contact() {
         <div className="flex items-center gap-3 p-4 rounded-lg bg-gradient-to-r from-[var(--color-charcoal)] to-[var(--color-navy)] shadow-md hover:scale-105 transition">
           <FaEnvelope className="text-[var(--color-blue)] text-xl" />
           <a href="mailto:vanshikarana11218@gmail.com" className="text-gray-300 hover:text-[var(--color-cyan)]">
-            vanshikarana11218@gmail.com
+          vanshikarajput1121@gmail.com
           </a>
         </div>
 
