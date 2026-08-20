@@ -12,37 +12,61 @@ import {
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const navLinks = [
-  { name: "Profile", href: "#home", icon: User },
-  { name: "Technologies", href: "#skills", icon: Globe },
-  { name: "Qualifications", href: "#about", icon: GraduationCap },
-  { name: "Projects", href: "#projects", icon: FolderOpen },
-  { name: "Contact", href: "#contact", icon: Mail },
+  {
+    name: "Profile",
+    href: "#home",
+    icon: User,
+  },
+  {
+    name: "Technologies",
+    href: "#skills",
+    icon: Globe,
+  },
+  {
+    name: "Qualifications",
+    href: "#qualifications",
+    icon: GraduationCap,
+  },
+  {
+    name: "Projects",
+    href: "#projects",
+    icon: FolderOpen,
+  },
+  {
+    name: "Contact",
+    href: "#contact",
+    icon: Mail,
+  },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("Profile");
 
-  // Scrollspy
+  /* =====================================================
+     ACTIVE SECTION / SCROLL SPY
+  ===================================================== */
+
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 150;
+      const scrollPosition = window.scrollY + 180;
 
       let currentSection = "Profile";
 
       navLinks.forEach((link) => {
         const section = document.querySelector(link.href);
 
-        if (section) {
-          const sectionTop = section.offsetTop;
-          const sectionBottom = sectionTop + section.offsetHeight;
+        if (!section) return;
 
-          if (
-            scrollPosition >= sectionTop &&
-            scrollPosition < sectionBottom
-          ) {
-            currentSection = link.name;
-          }
+        const sectionTop = section.offsetTop;
+        const sectionBottom =
+          sectionTop + section.offsetHeight;
+
+        if (
+          scrollPosition >= sectionTop &&
+          scrollPosition < sectionBottom
+        ) {
+          currentSection = link.name;
         }
       });
 
@@ -51,14 +75,19 @@ export default function Navbar() {
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  // Close mobile menu when screen becomes desktop
+  /* =====================================================
+     MOBILE MENU
+  ===================================================== */
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -73,116 +102,257 @@ export default function Navbar() {
     };
   }, []);
 
-  const handleNavClick = (name) => {
+  /* =====================================================
+     NAVIGATION CLICK
+  ===================================================== */
+
+  const handleNavClick = (name, href) => {
     setActive(name);
     setIsOpen(false);
+
+    const section = document.querySelector(href);
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl">
-      <div className="flex items-center justify-between gap-4 px-6 py-3 rounded-full bg-[#0A192F]/95 backdrop-blur-md shadow-lg border border-cyan-500/20">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-6xl">
+      <div
+        className="
+          flex
+          items-center
+          justify-between
+          gap-4
+          px-4
+          md:px-6
+          py-3
+          rounded-full
+          bg-[#071326]/90
+          backdrop-blur-xl
+          border
+          border-cyan-400/20
+          shadow-[0_15px_50px_rgba(0,0,0,0.4)]
+        "
+      >
+        {/* =================================================
+            LOGO
+        ================================================= */}
 
-        {/* Logo */}
-        <a
-          href="#home"
-          onClick={() => handleNavClick("Profile")}
-          className="w-12 h-12 rounded-full bg-cyan-400 flex items-center justify-center text-[#0A192F] font-bold text-lg shrink-0 shadow-md hover:scale-105 transition-transform duration-200"
-          aria-label="Go to Profile"
+        <button
+          type="button"
+          onClick={() =>
+            handleNavClick("Profile", "#home")
+          }
+          className="
+            w-11
+            h-11
+            md:w-12
+            md:h-12
+            shrink-0
+            rounded-full
+            bg-cyan-400
+            text-[#071326]
+            font-bold
+            text-lg
+            flex
+            items-center
+            justify-center
+            shadow-[0_0_25px_rgba(34,211,238,0.25)]
+            hover:scale-110
+            transition-transform
+          "
         >
           VR
-        </a>
+        </button>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-2">
+        {/* =================================================
+            DESKTOP NAVIGATION
+        ================================================= */}
+
+        <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = active === link.name;
 
             return (
-              <a
+              <button
                 key={link.name}
-                href={link.href}
-                onClick={() => handleNavClick(link.name)}
-                className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? "bg-cyan-400 text-[#0A192F] shadow-md"
-                    : "text-gray-300 hover:text-cyan-400 hover:bg-cyan-400/10"
-                }`}
+                type="button"
+                onClick={() =>
+                  handleNavClick(
+                    link.name,
+                    link.href
+                  )
+                }
+                className={`
+                  relative
+                  flex
+                  items-center
+                  gap-2
+                  px-4
+                  py-2.5
+                  rounded-full
+                  text-sm
+                  font-medium
+                  transition-all
+                  duration-300
+                  ${
+                    isActive
+                      ? "bg-cyan-400 text-[#071326] shadow-[0_0_20px_rgba(34,211,238,0.25)]"
+                      : "text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10"
+                  }
+                `}
               >
                 <Icon size={16} />
                 <span>{link.name}</span>
-              </a>
+              </button>
             );
           })}
         </div>
 
-        {/* Right Side */}
-        <div className="flex items-center gap-4 shrink-0">
+        {/* =================================================
+            SOCIAL + MOBILE BUTTON
+        ================================================= */}
 
-          {/* GitHub */}
+        <div className="flex items-center gap-3">
           <a
             href="https://github.com/vanshikarajput1121"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="hidden sm:block text-gray-300 hover:text-cyan-400 transition-colors duration-200"
+            aria-label="Vanshika Rana GitHub"
+            className="
+              hidden
+              sm:block
+              text-gray-300
+              hover:text-cyan-400
+              hover:scale-110
+              transition-all
+            "
           >
-            <FaGithub size={22} />
+            <FaGithub size={21} />
           </a>
 
-          {/* LinkedIn */}
           <a
             href="https://linkedin.com/in/vanshika-rana1121"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="hidden sm:block text-gray-300 hover:text-cyan-400 transition-colors duration-200"
+            aria-label="Vanshika Rana LinkedIn"
+            className="
+              hidden
+              sm:block
+              text-gray-300
+              hover:text-cyan-400
+              hover:scale-110
+              transition-all
+            "
           >
-            <FaLinkedin size={22} />
+            <FaLinkedin size={21} />
           </a>
 
-          {/* Mobile Menu Button */}
           <button
             type="button"
-            className="md:hidden p-2 text-cyan-400 hover:text-cyan-300 transition-colors"
-            onClick={() => setIsOpen((prev) => !prev)}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            className="
+              md:hidden
+              p-2
+              text-cyan-400
+              hover:text-cyan-300
+            "
+            onClick={() =>
+              setIsOpen((prev) => !prev)
+            }
+            aria-label={
+              isOpen
+                ? "Close navigation menu"
+                : "Open navigation menu"
+            }
             aria-expanded={isOpen}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? (
+              <X size={24} />
+            ) : (
+              <Menu size={24} />
+            )}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* =================================================
+          MOBILE MENU
+      ================================================= */}
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="md:hidden overflow-hidden mt-2 rounded-2xl bg-[#0A192F]/95 backdrop-blur-md shadow-lg border border-cyan-500/20"
+            initial={{
+              opacity: 0,
+              y: -10,
+              scale: 0.97,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              scale: 1,
+            }}
+            exit={{
+              opacity: 0,
+              y: -10,
+              scale: 0.97,
+            }}
+            transition={{ duration: 0.2 }}
+            className="
+              md:hidden
+              mt-3
+              rounded-2xl
+              overflow-hidden
+              bg-[#071326]/95
+              backdrop-blur-xl
+              border
+              border-cyan-400/20
+              shadow-[0_20px_50px_rgba(0,0,0,0.45)]
+            "
           >
-            <div className="flex flex-col p-3 gap-2">
+            <div className="p-3 space-y-2">
               {navLinks.map((link) => {
                 const Icon = link.icon;
-                const isActive = active === link.name;
+                const isActive =
+                  active === link.name;
 
                 return (
-                  <a
+                  <button
                     key={link.name}
-                    href={link.href}
-                    onClick={() => handleNavClick(link.name)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                      isActive
-                        ? "bg-cyan-400 text-[#0A192F]"
-                        : "text-gray-300 hover:bg-cyan-400/10 hover:text-cyan-400"
-                    }`}
+                    type="button"
+                    onClick={() =>
+                      handleNavClick(
+                        link.name,
+                        link.href
+                      )
+                    }
+                    className={`
+                      w-full
+                      flex
+                      items-center
+                      gap-3
+                      px-4
+                      py-3
+                      rounded-xl
+                      text-sm
+                      font-medium
+                      transition-all
+                      ${
+                        isActive
+                          ? "bg-cyan-400 text-[#071326]"
+                          : "text-gray-300 hover:bg-cyan-400/10 hover:text-cyan-300"
+                      }
+                    `}
                   >
                     <Icon size={17} />
-                    <span>{link.name}</span>
-                  </a>
+                    {link.name}
+                  </button>
                 );
               })}
             </div>

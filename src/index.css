@@ -1,52 +1,281 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+/* =========================================================
+   GLOBAL THEME
+========================================================= */
 
 :root {
-  --color-navy: #0A192F;       /* Dark navy background */
-  --color-charcoal: #1E1E1E;   /* Deep charcoal for panels */
-  --color-cyan: #22D3EE;       /* Electric cyan accent */
-  --color-blue: #60A5FA;       /* Bright blue accent */
-  --color-ice: #E0F7FA;        /* Soft ice blue for highlights */
-  --color-text: #F3F4F6;       /* Light gray/white text */
+  --color-navy: #050b18;
+  --color-navy-light: #0a192f;
+  --color-card: #0d1b31;
+  --color-card-light: #132238;
+
+  --color-cyan: #22d3ee;
+  --color-cyan-light: #67e8f9;
+  --color-blue: #60a5fa;
+
+  --color-text: #f3f4f6;
+  --color-muted: #94a3b8;
 }
 
-
-body {
-  background-color: var(--color-navy);
-  color: var(--color-text);
-  font-family: 'Poppins', sans-serif;
-}
-
-.font-script {
-  font-family: 'Alex Brush', cursive;
-}
-
-/* Diamond background pattern, adjusted for dark theme */
-.diamond-bg {
-  background-image:
-    linear-gradient(45deg, rgba(34,211,238,0.05) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(34,211,238,0.05) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(34,211,238,0.05) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(34,211,238,0.05) 75%);
-  background-size: 40px 40px;
-  background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
-}
-
-.dark .diamond-bg {
-  background-image:
-    linear-gradient(45deg, rgba(96,165,250,0.07) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(96,165,250,0.07) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(96,165,250,0.07) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(96,165,250,0.07) 75%);
-}
+/* =========================================================
+   BODY
+========================================================= */
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 110px;
 }
 
+body {
+  margin: 0;
+  background-color: var(--color-navy);
+  color: var(--color-text);
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+}
 
+/* =========================================================
+   MAIN DIAMOND / TECH PATTERN
+========================================================= */
 
+.diamond-bg {
+  background-color: var(--color-navy);
 
+  background-image:
+    linear-gradient(
+      45deg,
+      rgba(34, 211, 238, 0.045) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(34, 211, 238, 0.045) 75%
+    ),
+    linear-gradient(
+      -45deg,
+      rgba(34, 211, 238, 0.045) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(34, 211, 238, 0.045) 75%
+    ),
+    linear-gradient(
+      45deg,
+      transparent 40%,
+      rgba(96, 165, 250, 0.025) 40%,
+      rgba(96, 165, 250, 0.025) 60%,
+      transparent 60%
+    );
 
+  background-size:
+    50px 50px,
+    50px 50px,
+    100px 100px;
 
+  background-position:
+    0 0,
+    25px 25px,
+    0 0;
+}
+
+/* =========================================================
+   GLOBAL GLOW
+========================================================= */
+
+.neon-text {
+  text-shadow:
+    0 0 10px rgba(34, 211, 238, 0.4),
+    0 0 25px rgba(34, 211, 238, 0.15);
+}
+
+.neon-border {
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.12),
+    0 0 25px rgba(34, 211, 238, 0.08);
+}
+
+/* =========================================================
+   3D CARD
+========================================================= */
+
+.card-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease,
+    border-color 0.5s ease;
+}
+
+.card-3d:hover {
+  transform:
+    perspective(1000px)
+    rotateX(4deg)
+    rotateY(-4deg)
+    translateY(-10px);
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45),
+    0 0 35px rgba(34, 211, 238, 0.1);
+}
+
+/* =========================================================
+   GLASS CARD
+========================================================= */
+
+.glass-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(19, 34, 56, 0.92),
+      rgba(5, 11, 24, 0.96)
+    );
+
+  border: 1px solid rgba(34, 211, 238, 0.12);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================================================
+   3D ICON
+========================================================= */
+
+.icon-3d {
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+}
+
+.card-3d:hover .icon-3d {
+  transform:
+    translateZ(30px)
+    rotateY(10deg)
+    scale(1.08);
+}
+
+/* =========================================================
+   FLOATING ANIMATION
+========================================================= */
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.float-animation {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* =========================================================
+   GLOW PULSE
+========================================================= */
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 10px rgba(34, 211, 238, 0.08);
+  }
+
+  50% {
+    box-shadow:
+      0 0 30px rgba(34, 211, 238, 0.18);
+  }
+}
+
+.glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.portfolio-section {
+  position: relative;
+  width: 100%;
+  padding: 100px 24px;
+  scroll-margin-top: 100px;
+}
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.section-title {
+  color: var(--color-cyan);
+  text-shadow:
+    0 0 10px rgba(34, 211, 238, 0.25);
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050b18;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #164e63;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #22d3ee;
+}
+
+/* =========================================================
+   SELECTION
+========================================================= */
+
+::selection {
+  background: rgba(34, 211, 238, 0.3);
+  color: white;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  .portfolio-section {
+    padding: 80px 16px;
+  }
+
+  .card-3d:hover {
+    transform:
+      perspective(1000px)
+      translateY(-6px);
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
