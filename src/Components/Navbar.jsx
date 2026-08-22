@@ -8,8 +8,13 @@ import {
   GraduationCap,
   FolderOpen,
   Mail,
+  FileText,
 } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+
+// =====================================================
+// NAVIGATION LINKS
+// =====================================================
 
 const navLinks = [
   {
@@ -39,13 +44,20 @@ const navLinks = [
   },
 ];
 
+// =====================================================
+// RESUME
+// IMPORTANT: PDF must be inside public/
+// =====================================================
+
+const RESUME_URL = "/Vanshika_Rana_Resume.pdf";
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("Profile");
 
-  /* =====================================================
-     ACTIVE SECTION / SCROLL SPY
-  ===================================================== */
+  // =====================================================
+  // SCROLL SPY
+  // =====================================================
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,9 +96,9 @@ export default function Navbar() {
     };
   }, []);
 
-  /* =====================================================
-     MOBILE MENU
-  ===================================================== */
+  // =====================================================
+  // CLOSE MOBILE MENU ON DESKTOP
+  // =====================================================
 
   useEffect(() => {
     const handleResize = () => {
@@ -102,9 +114,9 @@ export default function Navbar() {
     };
   }, []);
 
-  /* =====================================================
-     NAVIGATION CLICK
-  ===================================================== */
+  // =====================================================
+  // NAVIGATION CLICK
+  // =====================================================
 
   const handleNavClick = (name, href) => {
     setActive(name);
@@ -120,8 +132,21 @@ export default function Navbar() {
     }
   };
 
+  // =====================================================
+  // RESUME CLICK
+  // =====================================================
+
+  const handleResumeClick = () => {
+    setIsOpen(false);
+  };
+
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-6xl">
+
+      {/* =================================================
+          MAIN NAVBAR
+      ================================================= */}
+
       <div
         className="
           flex
@@ -139,6 +164,7 @@ export default function Navbar() {
           shadow-[0_15px_50px_rgba(0,0,0,0.4)]
         "
       >
+
         {/* =================================================
             LOGO
         ================================================= */}
@@ -166,6 +192,7 @@ export default function Navbar() {
             hover:scale-110
             transition-transform
           "
+          aria-label="Go to Profile"
         >
           VR
         </button>
@@ -175,6 +202,7 @@ export default function Navbar() {
         ================================================= */}
 
         <div className="hidden md:flex items-center gap-1">
+
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = active === link.name;
@@ -213,13 +241,49 @@ export default function Navbar() {
               </button>
             );
           })}
+
+          {/* =================================================
+              DESKTOP RESUME
+          ================================================= */}
+
+          <a
+            href={RESUME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleResumeClick}
+            className="
+              ml-2
+              flex
+              items-center
+              gap-2
+              px-4
+              py-2.5
+              rounded-full
+              text-sm
+              font-semibold
+              bg-cyan-400
+              text-[#071326]
+              shadow-[0_0_20px_rgba(34,211,238,0.25)]
+              hover:bg-cyan-300
+              hover:scale-105
+              transition-all
+              duration-300
+            "
+            aria-label="Open Vanshika Rana Resume"
+          >
+            <FileText size={16} />
+            <span>Resume</span>
+          </a>
         </div>
 
         {/* =================================================
-            SOCIAL + MOBILE BUTTON
+            SOCIAL ICONS + MOBILE MENU
         ================================================= */}
 
         <div className="flex items-center gap-3">
+
+          {/* GITHUB */}
+
           <a
             href="https://github.com/vanshikarajput1121"
             target="_blank"
@@ -236,6 +300,8 @@ export default function Navbar() {
           >
             <FaGithub size={21} />
           </a>
+
+          {/* LINKEDIN */}
 
           <a
             href="https://linkedin.com/in/vanshika-rana1121"
@@ -254,6 +320,8 @@ export default function Navbar() {
             <FaLinkedin size={21} />
           </a>
 
+          {/* MOBILE MENU BUTTON */}
+
           <button
             type="button"
             className="
@@ -261,6 +329,7 @@ export default function Navbar() {
               p-2
               text-cyan-400
               hover:text-cyan-300
+              transition-colors
             "
             onClick={() =>
               setIsOpen((prev) => !prev)
@@ -303,7 +372,9 @@ export default function Navbar() {
               y: -10,
               scale: 0.97,
             }}
-            transition={{ duration: 0.2 }}
+            transition={{
+              duration: 0.2,
+            }}
             className="
               md:hidden
               mt-3
@@ -317,6 +388,9 @@ export default function Navbar() {
             "
           >
             <div className="p-3 space-y-2">
+
+              {/* MOBILE NAV LINKS */}
+
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive =
@@ -351,10 +425,40 @@ export default function Navbar() {
                     `}
                   >
                     <Icon size={17} />
-                    {link.name}
+                    <span>{link.name}</span>
                   </button>
                 );
               })}
+
+              {/* =================================================
+                  MOBILE RESUME
+              ================================================= */}
+
+              <a
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleResumeClick}
+                className="
+                  w-full
+                  flex
+                  items-center
+                  gap-3
+                  px-4
+                  py-3
+                  rounded-xl
+                  text-sm
+                  font-semibold
+                  bg-cyan-400
+                  text-[#071326]
+                  hover:bg-cyan-300
+                  transition-all
+                "
+              >
+                <FileText size={18} />
+                <span>View Resume</span>
+              </a>
+
             </div>
           </motion.div>
         )}
