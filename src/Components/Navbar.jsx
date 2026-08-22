@@ -12,10 +12,6 @@ import {
 } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
-// =====================================================
-// NAVIGATION LINKS
-// =====================================================
-
 const navLinks = [
   {
     name: "Profile",
@@ -29,7 +25,7 @@ const navLinks = [
   },
   {
     name: "Qualifications",
-    href: "#qualifications",
+    href: "#about",
     icon: GraduationCap,
   },
   {
@@ -44,24 +40,17 @@ const navLinks = [
   },
 ];
 
-// =====================================================
-// RESUME
-// IMPORTANT: PDF must be inside public/
-// =====================================================
-
-const RESUME_URL = "/Vanshika_Rana_Resume.pdf";
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("Profile");
 
-  // =====================================================
+  // ================================
   // SCROLL SPY
-  // =====================================================
+  // ================================
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 180;
+      const scrollPosition = window.scrollY + 150;
 
       let currentSection = "Profile";
 
@@ -87,18 +76,16 @@ export default function Navbar() {
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  // =====================================================
+  // ================================
   // CLOSE MOBILE MENU ON DESKTOP
-  // =====================================================
+  // ================================
 
   useEffect(() => {
     const handleResize = () => {
@@ -114,173 +101,84 @@ export default function Navbar() {
     };
   }, []);
 
-  // =====================================================
-  // NAVIGATION CLICK
-  // =====================================================
+  // ================================
+  // NAV CLICK
+  // ================================
 
-  const handleNavClick = (name, href) => {
+  const handleNavClick = (name) => {
     setActive(name);
-    setIsOpen(false);
-
-    const section = document.querySelector(href);
-
-    if (section) {
-      section.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
-
-  // =====================================================
-  // RESUME CLICK
-  // =====================================================
-
-  const handleResumeClick = () => {
     setIsOpen(false);
   };
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-6xl">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl">
 
-      {/* =================================================
+      {/* ================================
           MAIN NAVBAR
-      ================================================= */}
+      ================================= */}
 
-      <div
-        className="
-          flex
-          items-center
-          justify-between
-          gap-4
-          px-4
-          md:px-6
-          py-3
-          rounded-full
-          bg-[#071326]/90
-          backdrop-blur-xl
-          border
-          border-cyan-400/20
-          shadow-[0_15px_50px_rgba(0,0,0,0.4)]
-        "
-      >
+      <div className="flex items-center justify-between gap-4 px-6 py-3 rounded-full bg-[#0A192F]/95 backdrop-blur-md shadow-lg border border-cyan-500/20">
 
-        {/* =================================================
-            LOGO
-        ================================================= */}
+        {/* LOGO */}
 
-        <button
-          type="button"
-          onClick={() =>
-            handleNavClick("Profile", "#home")
-          }
-          className="
-            w-11
-            h-11
-            md:w-12
-            md:h-12
-            shrink-0
-            rounded-full
-            bg-cyan-400
-            text-[#071326]
-            font-bold
-            text-lg
-            flex
-            items-center
-            justify-center
-            shadow-[0_0_25px_rgba(34,211,238,0.25)]
-            hover:scale-110
-            transition-transform
-          "
+        <a
+          href="#home"
+          onClick={() => handleNavClick("Profile")}
+          className="w-12 h-12 rounded-full bg-cyan-400 flex items-center justify-center text-[#0A192F] font-bold text-lg shrink-0 shadow-md hover:scale-105 transition-transform duration-200"
           aria-label="Go to Profile"
         >
           VR
-        </button>
+        </a>
 
-        {/* =================================================
+        {/* ================================
             DESKTOP NAVIGATION
-        ================================================= */}
+        ================================= */}
 
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-2">
 
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = active === link.name;
 
             return (
-              <button
+              <a
                 key={link.name}
-                type="button"
-                onClick={() =>
-                  handleNavClick(
-                    link.name,
-                    link.href
-                  )
-                }
-                className={`
-                  relative
-                  flex
-                  items-center
-                  gap-2
-                  px-4
-                  py-2.5
-                  rounded-full
-                  text-sm
-                  font-medium
-                  transition-all
-                  duration-300
-                  ${
-                    isActive
-                      ? "bg-cyan-400 text-[#071326] shadow-[0_0_20px_rgba(34,211,238,0.25)]"
-                      : "text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10"
-                  }
-                `}
+                href={link.href}
+                onClick={() => handleNavClick(link.name)}
+                className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  isActive
+                    ? "bg-cyan-400 text-[#0A192F] shadow-md"
+                    : "text-gray-300 hover:text-cyan-400 hover:bg-cyan-400/10"
+                }`}
               >
                 <Icon size={16} />
                 <span>{link.name}</span>
-              </button>
+              </a>
             );
           })}
 
-          {/* =================================================
-              DESKTOP RESUME
-          ================================================= */}
+          {/* ================================
+              RESUME BUTTON
+          ================================= */}
 
           <a
-            href={RESUME_URL}
+            href="/Vanshika_Rana_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={handleResumeClick}
-            className="
-              ml-2
-              flex
-              items-center
-              gap-2
-              px-4
-              py-2.5
-              rounded-full
-              text-sm
-              font-semibold
-              bg-cyan-400
-              text-[#071326]
-              shadow-[0_0_20px_rgba(34,211,238,0.25)]
-              hover:bg-cyan-300
-              hover:scale-105
-              transition-all
-              duration-300
-            "
-            aria-label="Open Vanshika Rana Resume"
+            className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold bg-cyan-400 text-[#0A192F] shadow-md hover:bg-cyan-300 hover:scale-105 transition-all duration-200"
+            aria-label="Open Resume"
           >
             <FileText size={16} />
             <span>Resume</span>
           </a>
+
         </div>
 
-        {/* =================================================
-            SOCIAL ICONS + MOBILE MENU
-        ================================================= */}
+        {/* ================================
+            RIGHT SIDE
+        ================================= */}
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4 shrink-0">
 
           {/* GITHUB */}
 
@@ -288,17 +186,10 @@ export default function Navbar() {
             href="https://github.com/vanshikarajput1121"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Vanshika Rana GitHub"
-            className="
-              hidden
-              sm:block
-              text-gray-300
-              hover:text-cyan-400
-              hover:scale-110
-              transition-all
-            "
+            aria-label="GitHub"
+            className="hidden sm:block text-gray-300 hover:text-cyan-400 hover:scale-110 transition-all duration-200"
           >
-            <FaGithub size={21} />
+            <FaGithub size={22} />
           </a>
 
           {/* LINKEDIN */}
@@ -307,153 +198,87 @@ export default function Navbar() {
             href="https://linkedin.com/in/vanshika-rana1121"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Vanshika Rana LinkedIn"
-            className="
-              hidden
-              sm:block
-              text-gray-300
-              hover:text-cyan-400
-              hover:scale-110
-              transition-all
-            "
+            aria-label="LinkedIn"
+            className="hidden sm:block text-gray-300 hover:text-cyan-400 hover:scale-110 transition-all duration-200"
           >
-            <FaLinkedin size={21} />
+            <FaLinkedin size={22} />
           </a>
 
           {/* MOBILE MENU BUTTON */}
 
           <button
             type="button"
-            className="
-              md:hidden
-              p-2
-              text-cyan-400
-              hover:text-cyan-300
-              transition-colors
-            "
-            onClick={() =>
-              setIsOpen((prev) => !prev)
-            }
-            aria-label={
-              isOpen
-                ? "Close navigation menu"
-                : "Open navigation menu"
-            }
+            className="md:hidden p-2 text-cyan-400 hover:text-cyan-300 transition-colors"
+            onClick={() => setIsOpen((prev) => !prev)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
           >
-            {isOpen ? (
-              <X size={24} />
-            ) : (
-              <Menu size={24} />
-            )}
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
+
         </div>
       </div>
 
-      {/* =================================================
+      {/* ================================
           MOBILE MENU
-      ================================================= */}
+      ================================= */}
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{
+              height: 0,
               opacity: 0,
-              y: -10,
-              scale: 0.97,
             }}
             animate={{
+              height: "auto",
               opacity: 1,
-              y: 0,
-              scale: 1,
             }}
             exit={{
+              height: 0,
               opacity: 0,
-              y: -10,
-              scale: 0.97,
             }}
             transition={{
-              duration: 0.2,
+              duration: 0.25,
             }}
-            className="
-              md:hidden
-              mt-3
-              rounded-2xl
-              overflow-hidden
-              bg-[#071326]/95
-              backdrop-blur-xl
-              border
-              border-cyan-400/20
-              shadow-[0_20px_50px_rgba(0,0,0,0.45)]
-            "
+            className="md:hidden overflow-hidden mt-2 rounded-2xl bg-[#0A192F]/95 backdrop-blur-md shadow-lg border border-cyan-500/20"
           >
-            <div className="p-3 space-y-2">
+
+            <div className="flex flex-col p-3 gap-2">
 
               {/* MOBILE NAV LINKS */}
 
               {navLinks.map((link) => {
                 const Icon = link.icon;
-                const isActive =
-                  active === link.name;
+                const isActive = active === link.name;
 
                 return (
-                  <button
+                  <a
                     key={link.name}
-                    type="button"
-                    onClick={() =>
-                      handleNavClick(
-                        link.name,
-                        link.href
-                      )
-                    }
-                    className={`
-                      w-full
-                      flex
-                      items-center
-                      gap-3
-                      px-4
-                      py-3
-                      rounded-xl
-                      text-sm
-                      font-medium
-                      transition-all
-                      ${
-                        isActive
-                          ? "bg-cyan-400 text-[#071326]"
-                          : "text-gray-300 hover:bg-cyan-400/10 hover:text-cyan-300"
-                      }
-                    `}
+                    href={link.href}
+                    onClick={() => handleNavClick(link.name)}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                      isActive
+                        ? "bg-cyan-400 text-[#0A192F]"
+                        : "text-gray-300 hover:bg-cyan-400/10 hover:text-cyan-400"
+                    }`}
                   >
                     <Icon size={17} />
                     <span>{link.name}</span>
-                  </button>
+                  </a>
                 );
               })}
 
-              {/* =================================================
+              {/* ================================
                   MOBILE RESUME
-              ================================================= */}
+              ================================= */}
 
               <a
-                href={RESUME_URL}
+                href="/Vanshika_Rana_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={handleResumeClick}
-                className="
-                  w-full
-                  flex
-                  items-center
-                  gap-3
-                  px-4
-                  py-3
-                  rounded-xl
-                  text-sm
-                  font-semibold
-                  bg-cyan-400
-                  text-[#071326]
-                  hover:bg-cyan-300
-                  transition-all
-                "
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold bg-cyan-400 text-[#0A192F] hover:bg-cyan-300 transition-all duration-200"
               >
                 <FileText size={18} />
                 <span>View Resume</span>
@@ -463,6 +288,7 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
     </nav>
   );
 }
